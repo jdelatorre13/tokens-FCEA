@@ -174,6 +174,7 @@ def create_sankey(df):
     return fig
 
 def create_network_html(df, balances):
+    import json
     edges = df.groupby(['From_Alias', 'To_Alias'])['Amount'].sum().reset_index()
     nodes_data = []
     for wallet in set(df['From_Alias'].tolist() + df['To_Alias'].tolist()):
@@ -182,26 +183,84 @@ def create_network_html(df, balances):
             'id': wallet, 'label': wallet,
             'color': TYPE_COLORS.get(wtype, '#64748B'),
             'size': max(15, min(50, abs(balances.get(wallet, 0)) / 8 + 10)),
-            'title': f"{wallet}<br>Tipo: {TYPE_LABELS.get(wtype, 'Desconocido')}<br>Balance: {balances.get(wallet, 0):+d}"
+            'title': f"{wallet} | {TYPE_LABELS.get(wtype, '?')} | Balance: {balances.get(wallet, 0):+d}"
         })
-    edges_data = [{'from': r['From_Alias'], 'to': r['To_Alias'], 'value': r['Amount'], 'title': f"{r['Amount']} tokens"} for _, r in edges.iterrows()]
+    edges_data = [{'from': r['From_Alias'], 'to': r['To_Alias'], 'value': int(r['Amount']), 'title': f"{int(r['Amount'])} tokens"} for _, r in edges.iterrows()]
+    
+    nodes_json = json.dumps(nodes_data)
+    edges_json = json.dumps(edges_data)
     
     return f"""
-    <html><head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.6/vis-network.min.js"></script>
-    <style>body{{margin:0;background:#0F172A}}#net{{width:100%;height:500px}}</style>
-    </head><body><div id="net"></div><script>
-    var nodes = new vis.DataSet({nodes_data});
-    var edges = new vis.DataSet({edges_data});
-    var options = {{
-        nodes: {{shape:'dot',font:{{color:'#F1F5F9',size:12}},borderWidth:2}},
-        edges: {{arrows:'to',color:{{color:'#10B981',opacity:0.6}},smooth:{{type:'curvedCW'}}}},
-        physics: {{barnesHut:{{gravitationalConstant:-2500,springLength:150}}}},
-        interaction: {{hover:true,tooltipDelay:100}}
-    }};
-    new vis.Network(document.getElementById('net'), {{nodes:nodes,edges:edges}}, options);
-    </script></body></html>
-    """
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style type="text/css">
+        html, body {{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #0F172A;
+        }}
+        #mynetwork {{
+            width: 100%;
+            height: 500px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            background: linear-gradient(145deg, #1E293B, #0F172A);
+        }}
+    </style>
+</head>
+<body>
+    <div id="mynetwork"></div>
+    <script type="text/javascript">
+        var nodesArray = {nodes_json};
+        var edgesArray = {edges_json};
+        
+        var nodes = new vis.DataSet(nodesArray);
+        var edges = new vis.DataSet(edgesArray);
+        
+        var container = document.getElementById('mynetwork');
+        var data = {{ nodes: nodes, edges: edges }};
+        var options = {{
+            nodes: {{
+                shape: 'dot',
+                font: {{ color: '#F1F5F9', size: 14, face: 'Space Grotesk, sans-serif' }},
+                borderWidth: 3,
+                shadow: true
+            }},
+            edges: {{
+                arrows: {{ to: {{ enabled: true, scaleFactor: 0.8 }} }},
+                color: {{ color: '#10B981', highlight: '#14B8A6', opacity: 0.7 }},
+                smooth: {{ type: 'curvedCW', roundness: 0.2 }},
+                width: 2
+            }},
+            physics: {{
+                enabled: true,
+                barnesHut: {{
+                    gravitationalConstant: -3000,
+                    centralGravity: 0.3,
+                    springLength: 120,
+                    springConstant: 0.04,
+                    damping: 0.09
+                }},
+                stabilization: {{ iterations: 150 }}
+            }},
+            interaction: {{
+                hover: true,
+                tooltipDelay: 100,
+                zoomView: true,
+                dragView: true
+            }}
+        }};
+        
+        var network = new vis.Network(container, data, options);
+    </script>
+</body>
+</html>
+"""
 
 def main():
     st.markdown('<h1 class="main-header">🔗 ReFi Blockchain Flow</h1>', unsafe_allow_html=True)
