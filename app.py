@@ -107,12 +107,12 @@ DATA_CSV = """Date,Type,From,To,Amount,Ser
 18/3/2026 13:35:09,Mint,0x7102e091256Cb45DDfca79a4AC5323f8d885e67A,reficollective.sarafu.eth,500,ReFi"""
 
 WALLET_ALIASES = {
-    '0x4da4d627949923125018C06441A74D5995b70642': 'm1',
-    '0xba1523aAD313dDC94b3259b7a3a4B44D65E35620': 'Alexandra',
-    '0x7F611F9282947401450F3D9d630C2c72CFa478d9': 'Carlos',
-    '0xb89c9ff9fe440750688225258397F243ff4f1948': 'm3',
-    '0x97E5386eDA1f1Ff771C97DbBdB7CF8f372D6b793': 'm2',
-    '0xF3ec500C7bf62878aAe56D5B459eF2f3d7081849': 'Andreita',
+    '0x4da4d627949923125018C06441A74D5995b70642': 'Ricardo Camargo (Ángel inversionista)',
+    '0xba1523aAD313dDC94b3259b7a3a4B44D65E35620': 'Alexandra Baquero (Ángel inversionista)',
+    '0x7F611F9282947401450F3D9d630C2c72CFa478d9': 'Sara Pulido (Fondo impacta)',
+    '0xb89c9ff9fe440750688225258397F243ff4f1948': 'Carlos Casallas (Fondo acción)',
+    '0x97E5386eDA1f1Ff771C97DbBdB7CF8f372D6b793': 'Germán Villegas (Fundación Avina)',
+    '0xF3ec500C7bf62878aAe56D5B459eF2f3d7081849': 'Andrea',
     '0x0C0C60800a19E25DD6C59B7fD6f414C80E5603e2': 'JJ',
     'reficollective.sarafu.eth': 'ReFi Pool',
     '0x7102e091256Cb45DDfca79a4AC5323f8d885e67A': 'Mint Contract',
