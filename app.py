@@ -125,8 +125,8 @@ WALLET_ALIASES = {
 
 WALLET_TYPES = {
     'Mint Contract': 'contract', 'ReFi Pool': 'pool',
-    'JJ': 'liquidity', 'Andreita': 'liquidity',
-    'm1': 'mentor', 'm2': 'mentor', 'm3': 'mentor', 'Alexandra': 'mentor', 'Carlos': 'mentor',
+    'JJ': 'liquidity', 'Andrea': 'liquidity',
+    'Ricardo Camargo (Ángel inversionista)': 'mentor', 'Sara Pulido (Fondo impacta)': 'mentor', 'Germán Villegas (Fundación Avina)': 'mentor', 'Alexandra Baquero (Ángel inversionista)': 'mentor', 'Carlos Casallas (Fondo acción)': 'mentor',
     'AAS': 'org', 'Biodiversa': 'org', 'ECCO': 'org', 'Ecocirco': 'org', 'Más Compost': 'org'
 }
 
