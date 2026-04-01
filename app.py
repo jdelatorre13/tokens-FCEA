@@ -69,7 +69,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Datos embebidos directamente (no necesita archivo externo)
+# Datos embebidos directamente
 DATA_CSV = """Date,Type,From,To,Amount,Ser
 18/3/2026 16:35:32,Transfer,0x4da4d627949923125018C06441A74D5995b70642,0xdAab558078eC5E828cee28433BB3bE67c6f34693,16,Más Compost
 18/3/2026 16:35:24,Transfer,0xba1523aAD313dDC94b3259b7a3a4B44D65E35620,0xdAab558078eC5E828cee28433BB3bE67c6f34693,15,Más Compost
@@ -96,22 +96,23 @@ DATA_CSV = """Date,Type,From,To,Amount,Ser
 18/3/2026 16:37:37,Transfer,0xb89c9ff9fe440750688225258397F243ff4f1948,0x998AE93A24266059a13aD5141943073aF11A4983,14,AAS
 18/3/2026 16:36:04,Transfer,0xba1523aAD313dDC94b3259b7a3a4B44D65E35620,0x998AE93A24266059a13aD5141943073aF11A4983,16,AAS
 18/3/2026 16:35:41,Transfer,0x7F611F9282947401450F3D9d630C2c72CFa478d9,0x998AE93A24266059a13aD5141943073aF11A4983,11,AAS
-18/3/2026 14:30:47,Transfer,0xF3ec500C7bf62878aAe56D5B459eF2f3d7081849,0x4da4d627949923125018C06441A74D5995b70642,100,Ricardo Camargo (Ángel inversionista)
+18/3/2026 14:30:47,Transfer,0xF3ec500C7bf62878aAe56D5B459eF2f3d7081849,0x4da4d627949923125018C06441A74D5995b70642,100,Ricardo Camargo
 18/3/2026 14:29:36,Transfer,0x7F611F9282947401450F3D9d630C2c72CFa478d9,0x0C0C60800a19E25DD6C59B7fD6f414C80E5603e2,1,JJ
-18/3/2026 14:27:53,Transfer,0x0C0C60800a19E25DD6C59B7fD6f414C80E5603e2,0x7F611F9282947401450F3D9d630C2c72CFa478d9,100,Sara Pulido (Fondo impacta)
-18/3/2026 14:26:52,Transfer,0xF3ec500C7bf62878aAe56D5B459eF2f3d7081849,0x97E5386eDA1f1Ff771C97DbBdB7CF8f372D6b793,100,Germán Villegas (Fundación Avina)
-18/3/2026 14:22:04,Transfer,0xF3ec500C7bf62878aAe56D5B459eF2f3d7081849,0xb89c9ff9fe440750688225258397F243ff4f1948,100,Carlos Casallas (Fondo acción)
-18/3/2026 14:22:00,Transfer,0x0C0C60800a19E25DD6C59B7fD6f414C80E5603e2,0xba1523aAD313dDC94b3259b7a3a4B44D65E35620,100,Alexandra Baquero (Ángel inversionista)
+18/3/2026 14:27:53,Transfer,0x0C0C60800a19E25DD6C59B7fD6f414C80E5603e2,0x7F611F9282947401450F3D9d630C2c72CFa478d9,100,Sara Pulido
+18/3/2026 14:26:52,Transfer,0xF3ec500C7bf62878aAe56D5B459eF2f3d7081849,0x97E5386eDA1f1Ff771C97DbBdB7CF8f372D6b793,100,Germán Villegas
+18/3/2026 14:22:04,Transfer,0xF3ec500C7bf62878aAe56D5B459eF2f3d7081849,0xb89c9ff9fe440750688225258397F243ff4f1948,100,Carlos Casallas
+18/3/2026 14:22:00,Transfer,0x0C0C60800a19E25DD6C59B7fD6f414C80E5603e2,0xba1523aAD313dDC94b3259b7a3a4B44D65E35620,100,Alexandra Baquero
 18/3/2026 13:51:20,Transfer,reficollective.sarafu.eth,0xF3ec500C7bf62878aAe56D5B459eF2f3d7081849,300,Andrea
 18/3/2026 13:45:14,Transfer,reficollective.sarafu.eth,0x0C0C60800a19E25DD6C59B7fD6f414C80E5603e2,200,JJ
 18/3/2026 13:35:09,Mint,0x7102e091256Cb45DDfca79a4AC5323f8d885e67A,reficollective.sarafu.eth,500,ReFi"""
 
+# Mapeo de direcciones a nombres legibles
 WALLET_ALIASES = {
-    '0x4da4d627949923125018C06441A74D5995b70642': 'Ricardo Camargo (Ángel inversionista)',
-    '0xba1523aAD313dDC94b3259b7a3a4B44D65E35620': 'Alexandra Baquero (Ángel inversionista)',
-    '0x7F611F9282947401450F3D9d630C2c72CFa478d9': 'Sara Pulido (Fondo impacta)',
-    '0xb89c9ff9fe440750688225258397F243ff4f1948': 'Carlos Casallas (Fondo acción)',
-    '0x97E5386eDA1f1Ff771C97DbBdB7CF8f372D6b793': 'Germán Villegas (Fundación Avina)',
+    '0x4da4d627949923125018C06441A74D5995b70642': 'Ricardo Camargo',
+    '0xba1523aAD313dDC94b3259b7a3a4B44D65E35620': 'Alexandra Baquero',
+    '0x7F611F9282947401450F3D9d630C2c72CFa478d9': 'Sara Pulido',
+    '0xb89c9ff9fe440750688225258397F243ff4f1948': 'Carlos Casallas',
+    '0x97E5386eDA1f1Ff771C97DbBdB7CF8f372D6b793': 'Germán Villegas',
     '0xF3ec500C7bf62878aAe56D5B459eF2f3d7081849': 'Andrea',
     '0x0C0C60800a19E25DD6C59B7fD6f414C80E5603e2': 'JJ',
     'reficollective.sarafu.eth': 'ReFi Pool',
@@ -123,15 +124,39 @@ WALLET_ALIASES = {
     '0x998AE93A24266059a13aD5141943073aF11A4983': 'AAS'
 }
 
+# Tipos de wallet - los nombres deben coincidir EXACTAMENTE con WALLET_ALIASES
 WALLET_TYPES = {
-    'Mint Contract': 'contract', 'ReFi Pool': 'pool',
-    'JJ': 'liquidity', 'Andrea': 'liquidity',
-    'Ricardo Camargo (Ángel inversionista)': 'mentor', 'Sara Pulido (Fondo impacta)': 'mentor', 'Germán Villegas (Fundación Avina)': 'mentor', 'Alexandra Baquero (Ángel inversionista)': 'mentor', 'Carlos Casallas (Fondo acción)': 'mentor',
-    'AAS': 'org', 'Biodiversa': 'org', 'ECCO': 'org', 'Ecocirco': 'org', 'Más Compost': 'org'
+    'Mint Contract': 'contract',
+    'ReFi Pool': 'pool',
+    'JJ': 'liquidity',
+    'Andrea': 'liquidity',
+    'Ricardo Camargo': 'mentor',
+    'Alexandra Baquero': 'mentor',
+    'Sara Pulido': 'mentor',
+    'Carlos Casallas': 'mentor',
+    'Germán Villegas': 'mentor',
+    'AAS': 'org',
+    'Biodiversa': 'org',
+    'ECCO': 'org',
+    'Ecocirco': 'org',
+    'Más Compost': 'org'
 }
 
-TYPE_COLORS = {'contract': '#6366F1', 'pool': '#8B5CF6', 'liquidity': '#EC4899', 'mentor': '#10B981', 'org': '#F59E0B'}
-TYPE_LABELS = {'contract': '📜 Contrato', 'pool': '🏊 Pool', 'liquidity': '💧 Liquidez', 'mentor': '🎓 Mentor', 'org': '🌱 Organización'}
+TYPE_COLORS = {
+    'contract': '#6366F1',
+    'pool': '#8B5CF6',
+    'liquidity': '#EC4899',
+    'mentor': '#10B981',
+    'org': '#F59E0B'
+}
+
+TYPE_LABELS = {
+    'contract': '📜 Contrato',
+    'pool': '🏊 Pool',
+    'liquidity': '💧 Liquidez',
+    'mentor': '🎓 Mentor',
+    'org': '🌱 Organización'
+}
 
 @st.cache_data
 def load_data():
@@ -180,15 +205,16 @@ def create_network_html(df, balances):
     for wallet in set(df['From_Alias'].tolist() + df['To_Alias'].tolist()):
         wtype = WALLET_TYPES.get(wallet, 'unknown')
         nodes_data.append({
-            'id': wallet, 'label': wallet,
+            'id': wallet,
+            'label': wallet,
             'color': TYPE_COLORS.get(wtype, '#64748B'),
             'size': max(15, min(50, abs(balances.get(wallet, 0)) / 8 + 10)),
             'title': f"{wallet} | {TYPE_LABELS.get(wtype, '?')} | Balance: {balances.get(wallet, 0):+d}"
         })
     edges_data = [{'from': r['From_Alias'], 'to': r['To_Alias'], 'value': int(r['Amount']), 'title': f"{int(r['Amount'])} tokens"} for _, r in edges.iterrows()]
     
-    nodes_json = json.dumps(nodes_data)
-    edges_json = json.dumps(edges_data)
+    nodes_json = json.dumps(nodes_data, ensure_ascii=False)
+    edges_json = json.dumps(edges_data, ensure_ascii=False)
     
     return f"""
 <!DOCTYPE html>
@@ -297,6 +323,13 @@ def main():
     
     with tab1:
         st.markdown('<div class="info-box"><strong>🔍 Red interactiva:</strong> Arrastra y explora las conexiones entre wallets. El tamaño representa el balance.</div>', unsafe_allow_html=True)
+        
+        # DEBUG: Ver transacciones de Andrea
+        with st.expander("🔧 Debug: Transacciones de Andrea"):
+            andrea_txs = df_f[df_f['From_Alias'] == 'Andrea']
+            st.write(f"Transacciones donde Andrea envía: {len(andrea_txs)}")
+            if len(andrea_txs) > 0:
+                st.dataframe(andrea_txs[['From_Alias', 'To_Alias', 'Amount']])
         cols = st.columns(5)
         for i, (t, l) in enumerate(TYPE_LABELS.items()):
             cols[i].markdown(f'<span class="transparency-badge" style="background:{TYPE_COLORS[t]}">{l}</span>', unsafe_allow_html=True)
